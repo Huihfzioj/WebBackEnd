@@ -1,4 +1,4 @@
-package com.gestionAlumni.gestionAlumni.Entities;
+package com.gestionAlumni.Entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "monitor_requests")
-public class MonitorRequest {
+public class MentorshipRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,10 +22,10 @@ public class MonitorRequest {
     private Alumni proposer;
 
     @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher reviewer;
+    @JoinColumn(name = "professor_id")
+    private Professor reviewer;
 
-    @OneToOne(mappedBy = "monitorRequest")
+    @OneToOne(mappedBy = "mentorshipRequest")
     private Offer generatedOffer;
 }
 

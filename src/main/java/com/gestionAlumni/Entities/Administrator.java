@@ -1,9 +1,12 @@
-package com.gestionAlumni.gestionAlumni.Entities;
+package com.gestionAlumni.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,6 +15,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name="admin")
-public class Administrator extends User{
+public class Administrator extends User {
+
+    @OneToMany(mappedBy = "admin")
+    List<Event> events;
 }

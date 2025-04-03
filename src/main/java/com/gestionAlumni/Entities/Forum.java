@@ -1,4 +1,4 @@
-package com.gestionAlumni.gestionAlumni.Entities;
+package com.gestionAlumni.Entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

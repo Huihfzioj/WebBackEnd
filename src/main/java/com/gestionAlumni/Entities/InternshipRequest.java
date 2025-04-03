@@ -1,4 +1,4 @@
-package com.gestionAlumni.gestionAlumni.Entities;
+package com.gestionAlumni.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -29,6 +29,14 @@ public class InternshipRequest {
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime submissionDate = LocalDateTime.now();
+
+    @ManyToOne
+    @JoinColumn(name="student_id")
+    private Student sender;
+
+    @ManyToOne
+    @JoinColumn(name="alumni_id")
+    private Alumni receiver;
 
     // Enum pour le type de stage
     public enum InternshipType {

@@ -1,4 +1,4 @@
-package com.gestionAlumni.gestionAlumni.Entities;
+package com.gestionAlumni.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -21,6 +21,9 @@ public class Application {
 	    @Enumerated(EnumType.STRING)
 	    @Column(nullable = false)
 	    private ApplicationStatus status = ApplicationStatus.PENDING;
+		@ManyToOne
+		@JoinColumn(name="alumni_id")
+		private Alumni alumni;
         
 	    // Méthode pour soumettre une nouvelle application
 	    public static Application submit() {

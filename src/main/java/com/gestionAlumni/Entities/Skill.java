@@ -1,8 +1,10 @@
-package com.gestionAlumni.gestionAlumni.Entities;
+package com.gestionAlumni.Entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,4 +17,8 @@ public class Skill {
 
     private String name;
     private String proficiencyLevel;
+    @ManyToMany(mappedBy = "skills")
+    List<Alumni> alumnis;
+    @ManyToMany(mappedBy = "skills")
+    List<Student> students;
 }

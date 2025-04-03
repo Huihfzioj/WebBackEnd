@@ -1,4 +1,4 @@
-package com.gestionAlumni.gestionAlumni.Entities;
+package com.gestionAlumni.Entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,12 +18,12 @@ public class Offer {
     private Boolean status;
 
     @OneToOne
-    @JoinColumn(name = "monitor_request_id")
-    private MonitorRequest monitorRequest;
+    @JoinColumn(name = "mentorship_request_id")
+    private MentorshipRequest mentorshipRequest;
 
     @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher validator;
+    @JoinColumn(name = "professor_id")
+    private Professor validator;
 }
 
 

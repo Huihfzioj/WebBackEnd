@@ -1,4 +1,4 @@
-package com.gestionAlumni.gestionAlumni.Entities;
+package com.gestionAlumni;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

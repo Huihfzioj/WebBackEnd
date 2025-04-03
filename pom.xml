@@ -8,10 +8,23 @@
 		<version>3.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+<<<<<<< HEAD
 	<groupId>com.gestionAlumni</groupId>
 	<artifactId>gestionAlumni</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gestionAlumni</name>
+=======
+	<groupId>com.example</groupId>
+<<<<<<< HEAD
+	<artifactId>gestion_alumini</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>gestion_alumini</name>
+=======
+	<artifactId>gestionAlumni</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>gestionAlumni</name>
+>>>>>>> ead746ef274409ca9c53378781aad5322c1c1e2d
+>>>>>>> c820f108f669cc8e335f282bfc8f64a40377caf8
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -38,7 +51,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+=======
+         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.36</version>
+    <scope>provided</scope>
+</dependency>
+>>>>>>> ead746ef274409ca9c53378781aad5322c1c1e2d
+>>>>>>> c820f108f669cc8e335f282bfc8f64a40377caf8
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -56,6 +83,18 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.30</version>
+    <scope>provided</scope>
+    </dependency>
+		<dependency>
+=======
+>>>>>>> ead746ef274409ca9c53378781aad5322c1c1e2d
+>>>>>>> c820f108f669cc8e335f282bfc8f64a40377caf8
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>

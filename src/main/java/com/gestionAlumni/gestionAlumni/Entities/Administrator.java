@@ -14,5 +14,4 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @Table(name="admin")
 public class Administrator extends User{
-
 }

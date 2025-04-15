@@ -1,4 +1,4 @@
-package com.gestionAlumni.Entities;
+package com.example.gestionAlumni.Entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,10 +20,6 @@ public class Offer {
     @OneToOne
     @JoinColumn(name = "mentorship_request_id")
     private MentorshipRequest mentorshipRequest;
-
-    @ManyToOne
-    @JoinColumn(name = "professor_id")
-    private Professor validator;
 }
 
 

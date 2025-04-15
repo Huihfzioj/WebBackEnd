@@ -1,4 +1,4 @@
-package com.gestionAlumni;
+package com.example.gestionAlumni;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

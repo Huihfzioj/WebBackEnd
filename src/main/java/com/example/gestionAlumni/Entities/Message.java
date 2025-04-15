@@ -1,10 +1,9 @@
-package com.gestionAlumni.Entities;
+package com.example.gestionAlumni.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -15,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Message {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     @Column(length = 280, nullable = false)

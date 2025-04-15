@@ -1,4 +1,4 @@
-package com.gestionAlumni.Entities;
+package com.example.gestionAlumni.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,11 +9,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name="alumni")
 public class Alumni extends User{
 
     @Column(nullable = false)
@@ -25,22 +23,24 @@ public class Alumni extends User{
 
     Long salary;
 
-    String Speciality;
+    String speciality;
 
     @ManyToMany
     @JoinTable(name="alumni_skill",joinColumns = {@JoinColumn(name="alumni_id")},inverseJoinColumns = {@JoinColumn(name ="skill_id")})
     List<Skill> skills;
 
-    @ManyToMany
-    @JoinTable(name="alumni_forum",joinColumns = {@JoinColumn(name = "alumni_id")},inverseJoinColumns = {@JoinColumn(name="forum_id")})
-    List<Forum> joinedForums;
-
-    @OneToMany(mappedBy = "alumni")
+    @OneToMany
     List<Application> applications;
 
-    @OneToMany(mappedBy = "alumni")
+    @OneToMany
     List<MentorshipRequest> mentorshipRequests;
 
-    @OneToMany(mappedBy = "alumni")
+    @OneToMany
     List<InternshipRequest> internshipRequestsReceived;
+
+    void acceptInternship(Long id){
+        for (InternshipRequest intern : internshipRequestsReceived){
+
+        }
+    }
 }

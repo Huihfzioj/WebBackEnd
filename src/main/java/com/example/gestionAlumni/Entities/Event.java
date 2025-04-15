@@ -1,4 +1,4 @@
-package com.gestionAlumni.Entities;
+package com.example.gestionAlumni.Entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

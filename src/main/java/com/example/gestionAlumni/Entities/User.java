@@ -1,10 +1,10 @@
-package com.gestionAlumni.Entities;
+package com.example.gestionAlumni.Entities;
 
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.apache.logging.log4j.message.Message;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,10 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,18 +36,18 @@ public class User {
     @Column(columnDefinition = "boolean default true")
     boolean active=true;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "receiver")
     List<Message> ReceivedMessages;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy = "sender")
     List<Message> SentMessages;
 
     @OneToMany(mappedBy = "complainant", cascade = CascadeType.ALL)
     private List<Complaint> complaints = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "host")
     List<Event> hostedEvents;
 
-    @ManyToMany(mappedBy = "user")
+    @ManyToMany
     List<Event> events;
 }

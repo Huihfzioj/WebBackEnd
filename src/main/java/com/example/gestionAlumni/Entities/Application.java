@@ -1,4 +1,4 @@
-package com.gestionAlumni.Entities;
+package com.example.gestionAlumni.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;

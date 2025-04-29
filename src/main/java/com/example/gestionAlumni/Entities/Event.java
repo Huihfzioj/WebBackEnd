@@ -1,24 +1,12 @@
 package com.example.gestionAlumni.Entities;
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import ch.qos.logback.core.spi.ConfigurationEvent.EventType;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,7 +23,6 @@ public class Event {
 
     private String title;
     private String description;
-   
 
     @Column(name = "start_date")
     private LocalDateTime startDate;
@@ -48,25 +35,24 @@ public class Event {
 
     private String organizer = "Faculty"; // Valeur par défaut
 
-    
+    @ManyToMany
+    @JoinTable(
+        name = "event_participants",
+        joinColumns = @JoinColumn(name = "event_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> participants = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Administrator admin;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User host;
+
     // Méthodes du diagramme
     public void cancelEvent() {
         this.endDate = LocalDateTime.now();
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_id") // Colonne de jointure dans la table Event
-    private Administrator admin;
-
-
-     @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Student> listeStudents;
-
-    @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Alumni> listeAlumnis;
-
- 
-    public enum EventType {
-        CONFERENCE, WORKSHOP, NETWORKING
     }
 }

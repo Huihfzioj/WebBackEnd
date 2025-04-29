@@ -1,7 +1,7 @@
 package com.example.gestionAlumni.Entities;
 
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "monitor_requests")
-public class MonitorRequest {
+public class MentorshipRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,13 +23,8 @@ public class MonitorRequest {
     @ManyToOne
     @JoinColumn(name = "alumni_id")
     private Alumni proposer;
-
-    
-
-    @OneToOne(mappedBy = "monitorRequest")
+@JsonIgnore
+    @OneToOne(mappedBy = "mentorshipRequest")
     private Offer generatedOffer;
 
-    @OneToOne
-    @JoinColumn(name = "offer_id")
-    private Offer offer;
 }

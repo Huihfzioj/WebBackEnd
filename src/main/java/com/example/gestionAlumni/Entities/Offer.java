@@ -1,6 +1,7 @@
 package com.example.gestionAlumni.Entities;
 
 
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,20 +21,13 @@ public class Offer {
     private Boolean status;
 
     @OneToOne
-    @JoinColumn(name = "monitor_request_id")
-    private MonitorRequest monitorRequest;
+    @JoinColumn(name = "mentorship_request_id")
+    private MentorshipRequest mentorshipRequest;
+    
+    private LocalDateTime createdAt;
 
-
-
-  
-    @OneToOne(mappedBy = "offer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private InternshipRequest internshipRequest;
-
-   
-    @OneToOne(mappedBy = "offer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private MonitorRequest monitorrequest;
-
-  
-    @OneToOne(mappedBy = "offer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Application application;
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+    }
 }

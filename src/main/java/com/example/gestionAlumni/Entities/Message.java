@@ -1,46 +1,36 @@
 package com.example.gestionAlumni.Entities;
 
 
-
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.time.LocalDateTime;
-import java.util.List;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Getter
-@Setter
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "message")
 public class Message {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String content;
-
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime sentDate = LocalDateTime.now();
-
-    // Relation : Expéditeur (User)
+    @Column(length = 280, nullable = false)
+    String content;
+    LocalDateTime sentDate;
     @ManyToOne
-    @JoinColumn(name = "sender_id", nullable = false)
-    private Student sender;
-
-    // Relation : Destinataire (User)
+    @JoinColumn(name="sender_id",nullable = false)
+    User sender;
     @ManyToOne
-    @JoinColumn(name = "receiver_id", nullable = false)
-    private Student receiver;
-
-     
-
-   
-
-    
+    @JoinColumn(name="receiver_id",nullable = false)
+    User receiver;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="conversation_id", nullable = false)
+    Conversation conversation;
 }

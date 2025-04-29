@@ -1,8 +1,8 @@
 package com.example.gestionAlumni.Entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "internship_requests")
@@ -20,16 +20,24 @@ public class InternshipRequest {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private InternshipType type;
 
-    
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status ;
+    private RequestStatus status = RequestStatus.PENDING;
 
     @Column(nullable = false, updatable = false)
-    private String submissionDate ;
+    private LocalDateTime submissionDate = LocalDateTime.now();
+
+    @ManyToOne
+    @JoinColumn(name="student_id")
+    private Student sender;
+
+    @ManyToOne
+    @JoinColumn(name="alumni_id")
+    private Alumni receiver;
 
     // Enum pour le type de stage
     public enum InternshipType {
@@ -42,16 +50,14 @@ public class InternshipRequest {
         APPROVED,
         REJECTED // Ajout recommandé pour une gestion complète
     }
-    
- 
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id") // Colonne de jointure dans la table Complaint
-    private Student std;
-
-    @OneToOne
-    @JoinColumn(name = "offer_id")
-    private Offer offer;
-    
+    /*
+ // Méthode pour soumettre une demande
+    public static InternshipRequest submitRequest(String description, InternshipType type) {
+        return InternshipRequest.builder()
+                .description(description)
+                .type(type)
+                .status(RequestStatus.PENDING)
+                .build();
+    }
+    */
 }

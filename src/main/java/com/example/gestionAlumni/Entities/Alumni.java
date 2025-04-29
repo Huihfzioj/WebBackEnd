@@ -2,20 +2,11 @@ package com.example.gestionAlumni.Entities;
 
 
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,14 +15,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class Alumni extends User{
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
-    private Long idalumni;
+
     @Column(nullable = false)
     int graduationYear;
-
 
     String currentCompany;
 
@@ -39,15 +25,49 @@ public class Alumni extends User{
 
     Long salary;
 
-  
+    String speciality;
 
-    @OneToMany(mappedBy = "Alumni", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MonitorRequest>  MonitorRequests;
+    boolean verified=false;
 
-    @OneToMany(mappedBy = "Alumni", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Application>  applications;
+    String verificationToken;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-	    @JoinColumn(name = "event_id")
-	    private Event event;
+    @OneToMany
+    List<Application> applications;
+
+    @OneToMany
+    List<MentorshipRequest> mentorshipRequests;
+
+    @OneToMany
+    List<InternshipRequest> internshipRequestsReceived;
+
+    void acceptInternship(Long id){
+        for (InternshipRequest intern : internshipRequestsReceived){
+
+        }
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public String getEmail() {
+        return super.getEmail();
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public String getPassword() {
+        return super.getPassword();
+    }
+    public boolean isVerified() {
+        return super.isActive();
+    }
+
+    public boolean isActive() {
+        return super.isActive();
+    }
+
+
 }

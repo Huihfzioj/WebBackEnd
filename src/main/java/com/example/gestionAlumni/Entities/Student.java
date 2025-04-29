@@ -1,49 +1,38 @@
 package com.example.gestionAlumni.Entities;
 
 
-
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@Entity
+import java.util.List;
+
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
 public class Student extends User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
-    private Long idstudent;
 
-    @OneToMany(mappedBy = "receiver")
-    private List<Message> receivedMessages;
+    Float average;
+
+    String speciality;
+
+    int predictedGradYear;
     
+    @Lob
+    private byte[] document;
+
+    private String documentName;
+
+    private String searchType; 
+
+    @OneToMany(mappedBy = "student")
+    List<Application> applications;
+
     @OneToMany(mappedBy = "sender")
-    private List<Message> sendedMessages;
+    List<InternshipRequest> internshipRequests;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InternshipRequest> InternshipRequests;
-   
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Application> applications;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-	    @JoinColumn(name = "event_id")
-	    private Event event;
-
-       
 }

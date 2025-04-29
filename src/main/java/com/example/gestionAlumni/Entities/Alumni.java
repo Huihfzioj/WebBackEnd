@@ -25,9 +25,9 @@ public class Alumni extends User{
 
     String speciality;
 
-    @ManyToMany
-    @JoinTable(name="alumni_skill",joinColumns = {@JoinColumn(name="alumni_id")},inverseJoinColumns = {@JoinColumn(name ="skill_id")})
-    List<Skill> skills;
+    boolean verified=false;
+
+    String verificationToken;
 
     @OneToMany
     List<Application> applications;
@@ -43,4 +43,29 @@ public class Alumni extends User{
 
         }
     }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public String getEmail() {
+        return super.getEmail();
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public String getPassword() {
+        return super.getPassword();
+    }
+    public boolean isVerified() {
+        return super.isActive();
+    }
+
+    public boolean isActive() {
+        return super.isActive();
+    }
+
+
 }

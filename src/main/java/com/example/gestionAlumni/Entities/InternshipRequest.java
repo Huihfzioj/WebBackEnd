@@ -49,7 +49,7 @@ public class InternshipRequest {
         APPROVED,
         REJECTED // Ajout recommandé pour une gestion complète
     }
-    
+    /*
  // Méthode pour soumettre une demande
     public static InternshipRequest submitRequest(String description, InternshipType type) {
         return InternshipRequest.builder()
@@ -58,5 +58,5 @@ public class InternshipRequest {
                 .status(RequestStatus.PENDING)
                 .build();
     }
-    
+    */
 }

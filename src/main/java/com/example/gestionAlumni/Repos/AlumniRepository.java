@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface AlumniRepository extends JpaRepository<Alumni,Long> {
 
     Optional<Alumni> findByEmail(String email);
+    Optional<Alumni> findByVerificationToken(String token);
 
     Boolean existsByEmail(String email);
 
@@ -30,9 +31,6 @@ public interface AlumniRepository extends JpaRepository<Alumni,Long> {
     List<Alumni> findBySpeciality(String speciality);
 
     List<Alumni> findByGraduationYearAndCurrentCompany(int graduationYear, String company);
-
-    @Query("SELECT a.skills FROM Alumni a WHERE a.id = :alumniId")
-    List<Skill> findSkillsByAlumniId(Long alumniId);
 
     @Query("SELECT a.applications FROM Alumni a WHERE a.id = :alumniId")
     List<Application> findApplicationsByAlumniId(Long alumniId);

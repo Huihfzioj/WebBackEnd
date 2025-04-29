@@ -1,7 +1,6 @@
 package com.example.gestionAlumni.Repos;
 
 import com.example.gestionAlumni.Entities.Administrator;
-import com.example.gestionAlumni.Entities.ComplaintStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,9 +20,6 @@ public interface AdminRepository extends JpaRepository<Administrator,Long> {
     List<Administrator> findAllByActiveTrue();
 
     List<Administrator> findAllByActiveFalse();
-
-    @Query("SELECT a FROM Administrator a JOIN a.complaints c WHERE c.status = :status")
-    List<Administrator> findByComplaintStatus(ComplaintStatus status);
 
     @Modifying
     @Query("UPDATE Administrator a SET a.active = :status WHERE a.id IN :ids")

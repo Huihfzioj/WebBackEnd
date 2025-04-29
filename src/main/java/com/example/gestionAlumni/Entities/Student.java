@@ -21,10 +21,6 @@ public class Student extends User{
 
     int predictedGradYear;
 
-    @ManyToMany
-    @JoinTable(name = "student_skill",joinColumns = {@JoinColumn(name = "student_id")},inverseJoinColumns = {@JoinColumn(name = "skill_id")})
-    List<Skill> skills;
-
     @OneToMany(mappedBy = "student")
     List<Application> applications;
 

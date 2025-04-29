@@ -42,12 +42,49 @@ public class User {
     @OneToMany(mappedBy = "sender")
     List<Message> SentMessages;
 
-    @OneToMany(mappedBy = "complainant", cascade = CascadeType.ALL)
-    private List<Complaint> complaints = new ArrayList<>();
-
     @OneToMany(mappedBy = "host")
     List<Event> hostedEvents;
 
     @ManyToMany
     List<Event> events;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

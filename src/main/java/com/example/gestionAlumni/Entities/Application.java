@@ -24,14 +24,14 @@ public class Application {
 		@ManyToOne
 		@JoinColumn(name="alumni_id")
 		private Alumni alumni;
-        
+        /*
 	    // Méthode pour soumettre une nouvelle application
 	    public static Application submit() {
 	        return Application.builder()
 	                .status(ApplicationStatus.PENDING)
 	                .build();
 	    }
-
+         */
 	    // Méthode pour mettre à jour le statut
 	    public void updateStatus(ApplicationStatus newStatus) {
 	        this.status = newStatus;

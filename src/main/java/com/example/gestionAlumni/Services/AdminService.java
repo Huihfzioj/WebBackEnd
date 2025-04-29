@@ -5,7 +5,9 @@ import com.example.gestionAlumni.Repos.AdminRepository;
 import com.example.gestionAlumni.Repos.AlumniRepository;
 import com.example.gestionAlumni.Repos.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AdminService {
     @Autowired
     private AdminRepository adminrepo;

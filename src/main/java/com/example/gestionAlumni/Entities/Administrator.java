@@ -27,22 +27,7 @@ public class Administrator extends User {
     public void removeUnverifiedAlumni(Alumni alumni) {
         this.unverifiedAlumni.remove(alumni);
     }
-
-    public void verifyAlumni(Alumni alumni, String applicationBaseUrl) {
-        if (!unverifiedAlumni.contains(alumni)) {
-            throw new IllegalArgumentException("Alumni not found in unverified list.");
-        }
-
-        // Generate a unique verification token
-        String verificationToken = UUID.randomUUID().toString();
-        alumni.setVerificationToken(verificationToken);
-
-        // Send verification email
-        sendVerificationEmail(alumni.getEmail(), verificationToken, applicationBaseUrl);
-
-        // Move alumni to verified list (optional)
-        unverifiedAlumni.remove(alumni);
-    }
+    
 
     // Helper method to send email
     private void sendVerificationEmail(String alumniEmail, String token, String baseUrl) {

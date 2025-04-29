@@ -32,7 +32,6 @@ public class AlumniService {
 
         alumni.setPassword(passwordEncoder.encode(alumni.getPassword()));
         alumni.setVerified(false); // Waiting for admin approval
-        alumni.setVerificationToken(null); // No token needed anymore
 
         return alumniRepository.save(alumni);
     }
@@ -59,7 +58,6 @@ public class AlumniService {
                 .orElseThrow(() -> new RuntimeException("Invalid token"));
 
         alumni.setVerified(true);
-        alumni.setVerificationToken(null); // Clear token after verification
         return alumniRepository.save(alumni);
     }
 }

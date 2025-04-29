@@ -40,4 +40,25 @@ public interface AlumniRepository extends JpaRepository<Alumni,Long> {
 
     @Query("SELECT a.internshipRequestsReceived FROM Alumni a WHERE a.id = :alumniId")
     List<InternshipRequest> findInternshipRequestsByAlumniId(Long alumniId);
+
+    @Query("SELECT a.speciality, COUNT(a) FROM Alumni a GROUP BY a.speciality ORDER BY COUNT(a) DESC")
+    List<Object[]> countBySpeciality();
+
+    @Query("SELECT a.currentCompany, COUNT(a) FROM Alumni a WHERE a.currentCompany IS NOT NULL GROUP BY a.currentCompany ORDER BY COUNT(a) DESC")
+    List<Object[]> countByCompany();
+
+    @Query("SELECT a.currentJob, COUNT(a) FROM Alumni a WHERE a.currentJob IS NOT NULL GROUP BY a.currentJob")
+    List<Object[]> countByJobTitle();
+
+    @Query("SELECT a.speciality, AVG(a.salary) FROM Alumni a WHERE a.salary IS NOT NULL GROUP BY a.speciality")
+    List<Object[]> averageSalaryBySpeciality();
+
+    @Query("SELECT a.graduationYear, COUNT(a) FROM Alumni a GROUP BY a.graduationYear ORDER BY a.graduationYear DESC")
+    List<Object[]> alumniCountByYear();
+
+    long countByVerifiedTrue();
+
+    @Query("SELECT a.graduationYear, a.speciality, COUNT(a) FROM Alumni a GROUP BY a.graduationYear, a.speciality")
+    List<Object[]> countByYearAndSpeciality();
+
 }

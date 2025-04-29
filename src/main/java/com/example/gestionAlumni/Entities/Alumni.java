@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 public class Alumni extends User{
 
-    @Column(nullable = false)
+    @Column
     int graduationYear;
 
     String currentCompany;
@@ -26,6 +26,8 @@ public class Alumni extends User{
     String speciality;
 
     boolean verified=false;
+
+    int cin;
 
     String verificationToken;
 

@@ -3,7 +3,6 @@ package com.example.gestionAlumni.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import java.util.List;
 
 @NoArgsConstructor

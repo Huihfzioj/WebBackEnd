@@ -6,6 +6,8 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -26,4 +28,8 @@ public class Message {
     @ManyToOne
     @JoinColumn(name="receiver_id",nullable = false)
     User receiver;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="conversation_id", nullable = false)
+    Conversation conversation;
 }

@@ -1,5 +1,4 @@
-package com.example.gestionAlumni;
-
+package com.example.gestionAlumni.Services;
 
 import lombok.*;
 

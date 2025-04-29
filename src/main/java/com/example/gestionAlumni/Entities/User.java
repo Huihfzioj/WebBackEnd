@@ -1,6 +1,5 @@
 package com.example.gestionAlumni.Entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,6 +7,8 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Setter
@@ -35,10 +36,10 @@ public class User {
 
     @Column(columnDefinition = "boolean default true")
     boolean active=true;
-
+@JsonIgnore
     @OneToMany(mappedBy = "receiver")
     List<Message> ReceivedMessages;
-
+@JsonIgnore
     @OneToMany(mappedBy = "sender")
     List<Message> SentMessages;
 

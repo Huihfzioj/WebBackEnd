@@ -36,5 +36,13 @@ public class StudentController {
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    @PutMapping("/{id}/complete-profile")
+    public ResponseEntity<Student> completeProfile(@PathVariable Long id,
+                                                 @RequestParam String speciality,
+                                                 @RequestParam String searchType,
+                                                 @RequestParam int predictedGradYear,
+                                                 @RequestParam("document") MultipartFile document) {
+        Student updatedStudent = studentService.completeProfile(id, speciality, searchType, predictedGradYear, document);
+        return ResponseEntity.ok(updatedStudent);
     }
 }

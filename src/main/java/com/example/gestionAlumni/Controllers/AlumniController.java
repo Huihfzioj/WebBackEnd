@@ -1,8 +1,9 @@
 package com.example.gestionAlumni.Controllers;
 
 import com.example.gestionAlumni.Entities.Alumni;
-import com.example.gestionAlumni.LoginRequest;
 import com.example.gestionAlumni.Services.AlumniService;
+import com.example.gestionAlumni.Services.LoginRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

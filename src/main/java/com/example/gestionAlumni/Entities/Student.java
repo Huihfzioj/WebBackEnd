@@ -21,6 +21,13 @@ public class Student extends User{
 
     int predictedGradYear;
 
+    @Lob
+    private byte[] document;
+
+    private String documentName;
+
+    private String searchType;
+
     @OneToMany(mappedBy = "student")
     List<Application> applications;
 

@@ -14,7 +14,6 @@ import java.util.List;
 @Entity
 public class Alumni extends User{
 
-    @Column
     int graduationYear;
 
     String currentCompany;

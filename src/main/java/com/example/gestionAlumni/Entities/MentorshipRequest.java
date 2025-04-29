@@ -1,5 +1,8 @@
 package com.example.gestionAlumni.Entities;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +23,8 @@ public class MentorshipRequest {
     @ManyToOne
     @JoinColumn(name = "alumni_id")
     private Alumni proposer;
-
+@JsonIgnore
     @OneToOne(mappedBy = "mentorshipRequest")
     private Offer generatedOffer;
 
 }
-

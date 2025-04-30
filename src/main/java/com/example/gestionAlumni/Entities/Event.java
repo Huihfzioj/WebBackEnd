@@ -3,8 +3,6 @@ package com.example.gestionAlumni.Entities;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import ch.qos.logback.core.spi.ConfigurationEvent.EventType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

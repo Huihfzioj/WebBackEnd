@@ -9,6 +9,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Service
 public class StudentService {
@@ -39,30 +45,63 @@ public class StudentService {
     }
 
     // Méthode pour compléter le profil de l'étudiant
-    public Student completeProfile(Long id, String speciality, String searchType, int predictedGradYear, MultipartFile document) {
-        // 1. Récupérer l'étudiant à partir de l'ID
-        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
+    public Student completeProfile(Long id, String speciality, String searchType, Integer predictedGradYear, String skills, MultipartFile document) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
 
-        // 2. Mettre à jour les informations du profil
-        student.setSpeciality(speciality);
-        student.setPredictedGradYear(predictedGradYear);
-        student.setSearchType(searchType);
-
-        // 3. Ajouter et gérer le document
+        if (speciality != null && !speciality.isBlank()) {
+            student.setSpeciality(speciality);
+        }
+        if (searchType != null && !searchType.isBlank()) {
+            student.setSearchType(searchType);
+        }
+        if (predictedGradYear != null && predictedGradYear > 0) {
+            student.setPredictedGradYear(predictedGradYear);
+        }
+        if (skills != null && !skills.isBlank()) {
+            student.setSkill(skills);
+        }
         if (document != null && !document.isEmpty()) {
-            // Nom du fichier à stocker dans la base de données
-            String documentName = document.getOriginalFilename();
-
-            // Ici, tu peux sauvegarder le fichier sur ton disque ou dans un service de stockage
-            // Exemple de sauvegarde du nom du fichier
-            student.setDocumentName(documentName);
-
-            // Si tu veux transférer le fichier physiquement, tu peux décommenter cette ligne :
-            // String filePath = "path/to/storage/" + documentName;
-            // document.transferTo(new File(filePath));
+            try {
+                student.setDocument(document.getBytes());
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to read document", e);
+            }
         }
 
-        // 4. Sauvegarder l'étudiant mis à jour dans la base de données
         return studentRepository.save(student);
+    }
+    public Student updateProfile(Long id, Student updatedData) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+        student.setSkill(updatedData.getSkill());
+        student.setSpeciality(updatedData.getSpeciality());
+        student.setSearchType(updatedData.getSearchType());
+        student.setPredictedGradYear(updatedData.getPredictedGradYear());
+        student.setSkill(updatedData.getSkill());
+        return studentRepository.save(student);
+    }
+    public void saveDocument(Long studentId, String name, MultipartFile document, String description) throws IOException {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        // Compress the file into a zip
+        byte[] zippedBytes = zipFile(document.getOriginalFilename(), document.getBytes());
+
+        student.setDocument(zippedBytes); // Save compressed bytes
+        student.setDocumentName(name + ".zip");
+        student.setDescription(description);
+
+        studentRepository.save(student);
+    }
+    private byte[] zipFile(String fileName, byte[] fileData) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (ZipOutputStream zos = new ZipOutputStream(baos)) {
+            ZipEntry entry = new ZipEntry(fileName);
+            zos.putNextEntry(entry);
+            zos.write(fileData);
+            zos.closeEntry();
+        }
+        return baos.toByteArray();
     }
 }

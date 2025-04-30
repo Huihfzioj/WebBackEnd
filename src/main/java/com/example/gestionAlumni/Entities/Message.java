@@ -32,4 +32,24 @@ public class Message {
     @ManyToOne
     @JoinColumn(name="conversation_id", nullable = false)
     Conversation conversation;
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setSentDate(LocalDateTime sentDate) {
+        this.sentDate = sentDate;
+    }
+
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
+    }
 }

@@ -3,10 +3,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.*;
-import lombok.*;
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "applications")
 @Getter

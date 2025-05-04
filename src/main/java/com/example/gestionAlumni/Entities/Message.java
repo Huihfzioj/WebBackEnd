@@ -21,6 +21,7 @@ public class Message {
 
     @Column(length = 280, nullable = false)
     String content;
+
     LocalDateTime sentDate;
     @ManyToOne
     @JoinColumn(name="sender_id",nullable = false)
@@ -32,6 +33,9 @@ public class Message {
     @ManyToOne
     @JoinColumn(name="conversation_id", nullable = false)
     Conversation conversation;
+
+    @Column(name = "is_read", nullable = false)
+    private boolean read;
 
     public void setSender(User sender) {
         this.sender = sender;
@@ -51,5 +55,41 @@ public class Message {
 
     public void setConversation(Conversation conversation) {
         this.conversation = conversation;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public Conversation getConversation() {
+        return conversation;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public LocalDateTime getSentDate() {
+        return sentDate;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 }

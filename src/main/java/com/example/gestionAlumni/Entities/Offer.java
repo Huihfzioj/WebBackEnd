@@ -10,24 +10,81 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "offers")
-public class Offer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Offer extends Post{
+    private OfferType offerType;
 
-    private String title;
-    private String description;
+    private String position;
+
+    private String company;
+
+    private Duration duration;
+    private Double proposedSalary=0.0;
     private Boolean status;
-
     @OneToOne
     @JoinColumn(name = "mentorship_request_id")
     private MentorshipRequest mentorshipRequest;
 
-    private LocalDateTime createdAt;
+    public void setOfferType(OfferType offerType) {
+        this.offerType = offerType;
+    }
 
-    @PrePersist
-    public void prePersist() {
-        createdAt = LocalDateTime.now();
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public Double getProposedSalary() {
+        return proposedSalary;
+    }
+
+    @Override
+    public Long getId() {
+        return super.getId();
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    @Override
+    public Alumni getCreator() {
+        return super.getCreator();
+    }
+
+    @Override
+    public LocalDateTime getCreatedAt() {
+        return super.getCreatedAt();
+    }
+
+    @Override
+    public String getDescription() {
+        return super.getDescription();
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public void setProposedSalary(Double proposedSalary) {
+        this.proposedSalary = proposedSalary;
     }
 }

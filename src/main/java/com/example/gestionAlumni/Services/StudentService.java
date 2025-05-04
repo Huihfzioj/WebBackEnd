@@ -1,5 +1,6 @@
 package com.example.gestionAlumni.Services;
 
+import com.example.gestionAlumni.DTO.InfoDTO;
 import com.example.gestionAlumni.Entities.Student;
 import com.example.gestionAlumni.Repos.StudentRepository;
 import lombok.AccessLevel;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Date;
+import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -81,7 +84,7 @@ public class StudentService {
         student.setSkill(updatedData.getSkill());
         return studentRepository.save(student);
     }
-    public void saveDocument(Long studentId, String name, MultipartFile document, String description) throws IOException {
+    public void saveDocument(Long studentId, String name, MultipartFile document, String description, Date date) throws IOException {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
 
@@ -91,7 +94,7 @@ public class StudentService {
         student.setDocument(zippedBytes); // Save compressed bytes
         student.setDocumentName(name + ".zip");
         student.setDescription(description);
-
+        student.setDateUploadDoc(date);
         studentRepository.save(student);
     }
     private byte[] zipFile(String fileName, byte[] fileData) throws IOException {
@@ -103,5 +106,15 @@ public class StudentService {
             zos.closeEntry();
         }
         return baos.toByteArray();
+    }
+    public InfoDTO getStudentInfo(Long studentId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        return new InfoDTO(student);
+    }
+
+    public Optional<Student> findById(Long id) {
+        return studentRepository.findById(id);
     }
 }

@@ -31,7 +31,7 @@ public class MessageService {
 
         // Check if a conversation exists between the two users
         Optional<Conversation> conversationOpt = conversationRepository
-                .findByUsers(sender, receiver);
+                .findByUsers(sender.getId(), receiver.getId());
 
         Conversation conversation;
         if (conversationOpt.isPresent()) {

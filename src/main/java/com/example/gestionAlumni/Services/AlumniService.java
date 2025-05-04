@@ -1,5 +1,6 @@
 package com.example.gestionAlumni.Services;
 
+import com.example.gestionAlumni.DTO.AlumniInfoDto;
 import com.example.gestionAlumni.Entities.Alumni;
 import com.example.gestionAlumni.Repos.AlumniRepository;
 import lombok.*;
@@ -59,5 +60,16 @@ public class AlumniService {
 
         alumni.setVerified(true);
         return alumniRepository.save(alumni);
+    }
+    public AlumniInfoDto getAlumniInfo(Long id) {
+        Alumni alumni = alumniRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Alumni not found with ID: " + id));
+
+        return new AlumniInfoDto(
+                alumni.getFirstName(),
+                alumni.getLastName(),
+                alumni.getDepartment(),
+                alumni.getGraduationYear()
+        );
     }
 }

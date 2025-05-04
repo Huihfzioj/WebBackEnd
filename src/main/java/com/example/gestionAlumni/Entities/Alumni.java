@@ -24,6 +24,8 @@ public class Alumni extends User{
 
     String speciality;
 
+    String department;
+
     boolean verified=false;
 
     int cin;
@@ -38,6 +40,8 @@ public class Alumni extends User{
 
     @OneToMany
     List<InternshipRequest> internshipRequestsReceived;
+    @OneToMany
+    List<Post> posts;
 
     void acceptInternship(Long id){
         for (InternshipRequest intern : internshipRequestsReceived){
@@ -68,5 +72,11 @@ public class Alumni extends User{
         return super.isActive();
     }
 
+    public String getDepartment() {
+        return department;
+    }
 
+    public int getGraduationYear() {
+        return graduationYear;
+    }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -32,6 +33,8 @@ public class Student extends User{
     private String documentName;
 
     private String description;
+
+    private Date dateUploadDoc;
 
     @OneToMany(mappedBy = "student")
     List<Application> applications;
@@ -101,5 +104,13 @@ public class Student extends User{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getDateUploadDoc() {
+        return dateUploadDoc;
+    }
+
+    public void setDateUploadDoc(Date dateUploadDoc) {
+        this.dateUploadDoc = dateUploadDoc;
     }
 }

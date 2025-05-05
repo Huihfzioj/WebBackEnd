@@ -41,4 +41,5 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
             "AND m.sender.id != :userId AND m.read = false")
     long countUnreadMessages(@Param("conversationId") Long conversationId,
                              @Param("userId") Long userId);
+
 }

@@ -3,6 +3,8 @@ package com.example.gestionAlumni.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -57,5 +59,13 @@ public class Conversation {
 
     public void setUser2(User user2) {
         this.user2 = user2;
+    }
+
+
+    public Object getParticipants() {
+        List<Long> list=new ArrayList<>();
+        list.add(user1.getId());
+        list.add(user2.getId());
+        return list;
     }
 }

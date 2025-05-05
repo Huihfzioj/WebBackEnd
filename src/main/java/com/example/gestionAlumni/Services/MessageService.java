@@ -1,5 +1,7 @@
 package com.example.gestionAlumni.Services;
 
+import com.example.gestionAlumni.DTO.MessageDto;
+import com.example.gestionAlumni.DTO.MessageRequest;
 import com.example.gestionAlumni.Entities.Conversation;
 import com.example.gestionAlumni.Entities.Message;
 import com.example.gestionAlumni.Entities.User;

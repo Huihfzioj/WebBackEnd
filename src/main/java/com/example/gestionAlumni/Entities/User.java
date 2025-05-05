@@ -43,12 +43,6 @@ public class User {
     @OneToMany(mappedBy = "sender")
     List<Message> SentMessages;
 
-    @OneToMany(mappedBy = "host")
-    List<Event> hostedEvents;
-
-    @ManyToMany
-    List<Event> events;
-
     public String getEmail() {
         return email;
     }
@@ -88,8 +82,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getName() {
+    public String getFullName(){
         return firstName+" "+lastName;
     }
 }

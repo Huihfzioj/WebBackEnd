@@ -58,5 +58,9 @@ public class PostController {
     public Post updatePostDescription(@PathVariable Long postId, @RequestBody String newDescription) {
         return postService.updateDescription(postId, newDescription);
     }
+    @GetMapping("/user/{alumniId}")
+    public List<Post> getPostsByAlumni(@PathVariable Long alumniId) {
+        return postService.getPostsByAlumniId(alumniId);
+    }
 }
 

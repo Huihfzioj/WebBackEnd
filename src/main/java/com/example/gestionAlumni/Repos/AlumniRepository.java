@@ -1,8 +1,11 @@
 package com.example.gestionAlumni.Repos;
 
+import com.example.gestionAlumni.DTO.IndustryStatDto;
+import com.example.gestionAlumni.DTO.TopEmployerDto;
 import com.example.gestionAlumni.Entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,23 +17,14 @@ public interface AlumniRepository extends JpaRepository<Alumni,Long> {
     Optional<Alumni> findByEmail(String email);
     Optional<Alumni> findByVerificationToken(String token);
 
-    Boolean existsByEmail(String email);
+    @Query("SELECT a.currentCompany, COUNT(a) FROM Alumni a WHERE a.currentCompany IS NOT NULL GROUP BY a.currentCompany ORDER BY COUNT(a) DESC")
+    List<Object[]> findTopEmployers();
 
-    List<Alumni> findByGraduationYear(int graduationYear);
+    @Query("SELECT a.speciality, COUNT(a) FROM Alumni a WHERE a.speciality IS NOT NULL GROUP BY a.speciality ORDER BY COUNT(a) DESC")
+    List<Object[]> findTopSkills();
 
-    List<Alumni> findByCurrentCompany(String company);
-
-    List<Alumni> findByCurrentJob(String currentJob);
-
-    List<Alumni> findBySalaryGreaterThanEqual(Long salary);
-
-    List<Alumni> findBySalaryLessThanEqual(Long salary);
-
-    List<Alumni> findBySalary(Long salary);
-
-    List<Alumni> findBySpeciality(String speciality);
-
-    List<Alumni> findByGraduationYearAndCurrentCompany(int graduationYear, String company);
+    @Query("SELECT a.currentJob, COUNT(a) FROM Alumni a WHERE a.currentJob IS NOT NULL GROUP BY a.currentJob")
+    List<Object[]> findIndustryStats();
 
     @Query("SELECT a.applications FROM Alumni a WHERE a.id = :alumniId")
     List<Application> findApplicationsByAlumniId(Long alumniId);
@@ -60,5 +54,7 @@ public interface AlumniRepository extends JpaRepository<Alumni,Long> {
 
     @Query("SELECT a.graduationYear, a.speciality, COUNT(a) FROM Alumni a GROUP BY a.graduationYear, a.speciality")
     List<Object[]> countByYearAndSpeciality();
+    @Query("SELECT a FROM Alumni a WHERE a.industry = :industry")
+    List<Alumni> findSuggestedAlumni(@Param("industry") String industry);
 
 }

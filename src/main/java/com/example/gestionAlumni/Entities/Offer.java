@@ -11,13 +11,16 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Offer extends Post{
+
+    @Enumerated(EnumType.STRING)
     private OfferType offerType;
 
     private String position;
 
     private String company;
-
+    @Enumerated(EnumType.STRING)
     private Duration duration;
+
     private Double proposedSalary=0.0;
     private Boolean status;
     @OneToOne
@@ -86,5 +89,9 @@ public class Offer extends Post{
 
     public void setProposedSalary(Double proposedSalary) {
         this.proposedSalary = proposedSalary;
+    }
+
+    public OfferType getOfferType() {
+        return offerType;
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.text.SimpleDateFormat;
@@ -93,7 +94,8 @@ public class StudentController {
     }
     @GetMapping("/{id}/documents")
     public ResponseEntity<List<DocumentResponse>> getDocuments(@PathVariable Long id) {
-        Student student = studentService.findById(id).orElseThrow();
+        Student student = studentService.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found with ID " + id));
 
         if (student.getDocument() == null) {
             return ResponseEntity.ok(Collections.emptyList());

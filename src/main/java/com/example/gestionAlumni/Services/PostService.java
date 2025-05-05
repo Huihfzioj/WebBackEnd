@@ -36,5 +36,8 @@ public class PostService {
         post.setDescription(newDescription);
         return postRepository.save(post);
     }
+    public List<Post> getPostsByAlumniId(Long alumniId) {
+        return postRepository.findByCreatorId(alumniId);
+    }
 }
 

@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -57,7 +56,7 @@ public class ConversationService {
 
             return new ConversationPreviewDto(
                     conversation.getId(),
-                    new UserDto(otherParticipant.getId(), otherParticipant.getName()),
+                    new UserDto(otherParticipant.getId(), otherParticipant.getFullName()),
                     lastMessage.map(Message::getContent).orElse(null),
                     lastMessage.map(Message::getSentDate).orElse(null),
                     (int)unreadCount,String.valueOf(otherParticipant.getClass())
@@ -124,7 +123,7 @@ public class ConversationService {
         );
     }
     private UserDto convertToUserDto(User user){
-        return new UserDto(user.getId(), user.getName());
+        return new UserDto(user.getId(), user.getFullName());
     }
     private Conversation createNewConversation(Long user1Id, Long user2Id) {
         User user1 = userRepo.findById(user1Id)
@@ -150,8 +149,25 @@ public class ConversationService {
 
         // Count unread messages
         int unreadCount = (int) messageRepo.countUnreadMessages(conversation.getId(), currentUserId);
-        UserDto user=new UserDto(otherParticipant.getId(),otherParticipant.getName());
+        UserDto user=new UserDto(otherParticipant.getId(),otherParticipant.getFullName());
         ConversationPreviewDto dto = new ConversationPreviewDto(conversation.getId(),user,lastMessage != null ? lastMessage.getContent() : null,lastMessage != null ? lastMessage.getSentDate() : null,unreadCount,String.valueOf(user.getClass()));
         return dto;
+    }
+    public ConversationDto startConversation(Long currentUserId, Long alumniId) {
+        // Check if conversation already exists
+        Conversation conversation = conversationRepo.findByParticipants(currentUserId, alumniId);
+        UserDto user = new UserDto(Long.valueOf(0), "");
+        UserDto u = new UserDto(Long.valueOf(-1), "");
+        if (conversation == null) {
+            conversation = new Conversation();
+            Optional<User> sender = userRepo.findById(currentUserId);
+            Optional<User> receiver = userRepo.findById(alumniId);
+            conversation.setUser1(sender.orElse(null));
+            conversation.setUser2(receiver.orElse(null));
+            conversationRepo.save(conversation);
+            user = new UserDto(sender.get().getId(), sender.get().getFullName());
+            u = new UserDto(receiver.get().getId(), receiver.get().getFullName());
+        }
+        return new ConversationDto(conversation.getId(),user,u,null,0);
     }
 }

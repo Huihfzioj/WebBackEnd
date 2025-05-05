@@ -24,6 +24,8 @@ public class Alumni extends User{
 
     String speciality;
 
+    String industry;
+
     String department;
 
     boolean verified=false;
@@ -42,13 +44,19 @@ public class Alumni extends User{
     List<InternshipRequest> internshipRequestsReceived;
     @OneToMany
     List<Post> posts;
-
     void acceptInternship(Long id){
         for (InternshipRequest intern : internshipRequestsReceived){
 
         }
     }
 
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setCurrentJob(String currentJob) {
+        this.currentJob = currentJob;
+    }
     public void setVerificationToken(String verificationToken) {
         this.verificationToken = verificationToken;
     }
@@ -78,5 +86,41 @@ public class Alumni extends User{
 
     public int getGraduationYear() {
         return graduationYear;
+    }
+
+    public String getCurrentCompany() {
+        return currentCompany;
+    }
+
+    public String getCurrentJob() {
+        return currentJob;
+    }
+    public String getIndustry(){
+        return industry;
+    }
+
+    public void setGraduationYear(int graduationYear) {
+        this.graduationYear = graduationYear;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public void setCurrentCompany(String currentCompany) {
+        this.currentCompany = currentCompany;
+    }
+
+    @Override
+    public Long getId() {
+        return super.getId();
     }
 }

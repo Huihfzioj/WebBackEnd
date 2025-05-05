@@ -1,9 +1,6 @@
 package com.example.gestionAlumni.Controllers;
 
-import com.example.gestionAlumni.DTO.ConversationDto;
-import com.example.gestionAlumni.DTO.ConversationPreviewDto;
-import com.example.gestionAlumni.DTO.MessageDto;
-import com.example.gestionAlumni.DTO.MessageRequest;
+import com.example.gestionAlumni.DTO.*;
 import com.example.gestionAlumni.Services.ConversationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +56,9 @@ public class ConversationController {
         return conversationService.getMessages(
                 conversationId, currentUserId, PageRequest.of(page, size)
         );
+    }
+    @PostMapping("/api/conversations/start")
+    public ConversationDto startConversation(@RequestBody ConversationStartRequest request) {
+        return conversationService.startConversation(request.getCurrentUserId(), request.getAlumniId());
     }
 }

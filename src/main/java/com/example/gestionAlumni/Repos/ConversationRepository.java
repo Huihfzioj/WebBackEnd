@@ -30,4 +30,7 @@ public interface ConversationRepository extends JpaRepository<Conversation, Long
             "ORDER BY (SELECT MAX(m.sentDate) FROM c.messages m) DESC")
     Page<Conversation> findConversationsByUserId(@Param("userId") Long userId,
                                                  Pageable pageable);
+
+    @Query("SELECT c FROM Conversation c WHERE (c.user1.id = :userId AND c.user2.id = :alumniId) OR (c.user1.id = :alumniId AND c.user2.id = :userId)")
+    Conversation findByParticipants(@Param("userId") Long userId, @Param("alumniId") Long alumniId);
 }

@@ -1,5 +1,8 @@
 package com.example.gestionAlumni.Controllers;
 
+import com.example.gestionAlumni.DTO.AlumniDto;
+import com.example.gestionAlumni.DTO.AlumniInfoDto;
+import com.example.gestionAlumni.DTO.AlumniProfileUpdateDTO;
 import com.example.gestionAlumni.Entities.Alumni;
 import com.example.gestionAlumni.Services.AlumniService;
 import com.example.gestionAlumni.Services.LoginRequest;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -50,5 +54,19 @@ public class AlumniController {
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/{id}/info")
+    public ResponseEntity<AlumniInfoDto> getAlumniInfo(@PathVariable Long id) {
+        AlumniInfoDto info = alumniService.getAlumniInfo(id);
+        return ResponseEntity.ok(info);
+    }
+    @PutMapping("/{id}/profile")
+    public void updateProfile(@PathVariable Long id, @RequestBody AlumniProfileUpdateDTO dto) {
+        alumniService.updateAlumniProfile(id, dto);
+    }
+    @GetMapping("suggestions")
+    public List<AlumniDto> getAlumniSuggestions(@RequestParam Long currentUserId) {
+        return alumniService.getSuggestedAlumni(currentUserId);
     }
 }

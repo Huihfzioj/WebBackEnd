@@ -1,15 +1,19 @@
 package com.example.gestionAlumni.Services;
 
+import com.example.gestionAlumni.DTO.AlumniDto;
 import com.example.gestionAlumni.DTO.AlumniInfoDto;
 import com.example.gestionAlumni.Entities.Alumni;
+import com.example.gestionAlumni.Entities.Student;
 import com.example.gestionAlumni.Repos.AlumniRepository;
+import com.example.gestionAlumni.Repos.StudentRepository;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,6 +28,8 @@ public class AlumniService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private EmailService emailService; // Inject the EmailService
+    @Autowired
+    private StudentRepository studentRepository;
 
     // Signup: Generate token and send verification email
     public Alumni signup(Alumni alumni) {
@@ -69,7 +75,21 @@ public class AlumniService {
                 alumni.getFirstName(),
                 alumni.getLastName(),
                 alumni.getDepartment(),
-                alumni.getGraduationYear()
+                alumni.getGraduationYear(),
+                alumni.getCurrentJob(),
+                alumni.getCurrentCompany(),
+                alumni.getIndustry()
         );
+    }
+    public List<AlumniDto> getSuggestedAlumni(Long currentUserId) {
+        // Logic to fetch alumni based on the user's field, industry, or other criteria
+        Student student = studentRepository.findById(currentUserId).get();
+        List<Alumni> suggestedAlumni = alumniRepository.findSuggestedAlumni(student.getSpeciality());
+        List<AlumniDto> alumnis = new ArrayList<>();
+        for (Alumni al : suggestedAlumni) {
+            AlumniDto l = new AlumniDto(al.getId(), al.getFirstName(), al.getLastName());
+            return alumnis;
+        }
+        return alumnis;
     }
 }
